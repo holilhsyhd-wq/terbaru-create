@@ -1,0 +1,27 @@
+// config.js
+const config = {
+    // --- Pengaturan Panel Pterodactyl ---
+    pterodactyl: {
+        domain: "https://vippublik.kantinvps.my.id", // GANTI
+        apiKey: "ptla_4p2hBLQHfkKVi1NL19F3bWkfRofRi30EgpbQicIzIVx", // GANTI
+
+        // Pengaturan server default
+        locationId: 1,
+        eggId: 15,
+        disk: 5120, // MB (5 GB)
+        cpu: 100,   // 100% = 1 core
+
+        docker_image: "ghcr.io/parkervcp/yolks:nodejs_18",
+        startupCmd:
+            "if [[ -d .git ]]; then git pull; fi; " +
+            "if [[ ! -z ${NODE_PACKAGES} ]]; then /usr/local/bin/npm install ${NODE_PACKAGES}; fi; " +
+            "if [[ -f /home/container/package.json ]]; then /usr/local/bin/npm install; fi; {{CMD_RUN}}",
+
+        extra_environment: {
+            // Contoh environment tambahan:
+            // "NODE_ENV": "production"
+        }
+    }
+};
+
+module.exports = config;
