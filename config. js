@@ -3,7 +3,7 @@ const config = {
     // --- Pengaturan Panel Pterodactyl ---
     pterodactyl: {
         domain: "https://vippublik.kantinvps.my.id", // GANTI
-        apiKey: "ptla_4p2hBLQHfkKVi1NL19F3bWkfRofRi30EgpbQicIzIVx", // GANTI
+        apiKey: "ptlc_f0EokfK8LHQOfi2YwXRrtsAXVaMTXnZWeedjhL5nTN6", // GANTI
 
         // Pengaturan server default
         locationId: 1,
