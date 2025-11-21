@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Server Create – Pterodactyl Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020617;
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: #020617;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: .25rem;
+    }
+    p.subtitle {
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+      font-size: .9rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #020617;
+      border-radius: .75rem;
+      border: 1px solid #111827;
+      box-shadow: 0 18px 50px rgba(0,0,0,.7);
+      padding: 1.25rem 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      margin-bottom: .25rem;
+    }
+    .card-desc {
+      font-size: .8rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-size: .8rem;
+      margin-bottom: .25rem;
+      color: #d1d5db;
+    }
+
+    input, select {
+      width: 100%;
+      padding: .45rem .6rem;
+      border-radius: .45rem;
+      border: 1px solid #1f2933;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: .85rem;
+      margin-bottom: .75rem;
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px rgba(59,130,246,.4);
+    }
+
+    button {
+      width: 100%;
+      padding: .55rem .75rem;
+      border-radius: .6rem;
+      border: none;
+      cursor: pointer;
+      font-size: .9rem;
+      font-weight: 600;
+      background: linear-gradient(135deg,#3b82f6,#22c55e);
+      color: #0b1120;
+      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+      box-shadow: 0 12px 30px rgba(37,99,235,.35);
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(37,99,235,.45);
+      opacity: .95;
+    }
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 16px rgba(15,23,42,.9);
+    }
+
+    .status {
+      font-size: .8rem;
+      margin-top: .5rem;
+      min-height: 1.2em;
+      white-space: pre-line;
+    }
+    .status.ok { color: #22c55e; }
+    .status.err { color: #f97316; }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: .75rem;
+      color: #6b7280;
+    }
+    a { color: #60a5fa; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header style="margin-bottom:1.5rem;">
+      <h1>Server Create Pterodactyl</h1>
+      <p class="subtitle">Generate panel & admin panel Pterodactyl dengan pilihan RAM 1–9 GB atau Unlimited.</p>
+    </header>
+
+    <main class="grid">
+      <!-- CARD USER PANEL -->
+      <section class="card" id="card-panel">
+        <h2 class="card-title">Create Panel Pterodactyl</h2>
+        <p class="card-desc">Isi data panel yang ingin dibuat lalu pilih RAM.</p>
+
+        <form id="form-panel">
+          <label for="panel-domain">Domain / Subdomain</label>
+          <input id="panel-domain" name="domain" type="text" placeholder="contoh: panel.domainkamu.com" required />
+
+          <label for="panel-email">Email Owner</label>
+          <input id="panel-email" name="email" type="email" placeholder="contoh: kamu@email.com" required />
+
+          <label for="panel-ram">Pilihan RAM (GB)</label>
+          <select id="panel-ram" name="ram" required>
+            <option value="">-- Pilih RAM --</option>
+            <option value="1">1 GB</option>
+            <option value="2">2 GB</option>
+            <option value="3">3 GB</option>
+            <option value="4">4 GB</option>
+            <option value="5">5 GB</option>
+            <option value="6">6 GB</option>
+            <option value="7">7 GB</option>
+            <option value="8">8 GB</option>
+            <option value="9">9 GB</option>
+            <option value="unlimited">Unlimited</option>
+          </select>
+
+          <button type="submit">Create Panel</button>
+          <div class="status" id="panel-status"></div>
+        </form>
+      </section>
+
+      <!-- CARD ADMIN PANEL -->
+      <section class="card" id="card-admin">
+        <h2 class="card-title">Create Admin Panel Pterodactyl</h2>
+        <p class="card-desc">Buat panel admin / reseller dengan pengaturan RAM yang sama.</p>
+
+        <form id="form-admin">
+          <label for="admin-username">Username Admin</label>
+          <input id="admin-username" name="username" type="text" placeholder="contoh: admin01" required />
+
+          <label for="admin-email">Email Admin</label>
+          <input id="admin-email" name="email" type="email" placeholder="contoh: admin@email.com" required />
+
+          <label for="admin-ram">Pilihan RAM (GB)</label>
+          <select id="admin-ram" name="ram" required>
+            <option value="">-- Pilih RAM --</option>
+            <option value="1">1 GB</option>
+            <option value="2">2 GB</option>
+            <option value="3">3 GB</option>
+            <option value="4">4 GB</option>
+            <option value="5">5 GB</option>
+            <option value="6">6 GB</option>
+            <option value="7">7 GB</option>
+            <option value="8">8 GB</option>
+            <option value="9">9 GB</option>
+            <option value="unlimited">Unlimited</option>
+          </select>
+
+          <button type="submit">Create Admin Panel</button>
+          <div class="status" id="admin-status"></div>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      Server Create • Pterodactyl Panel Generator
+    </footer>
+  </div>
+
+  <script>
+    async function handleSubmit(formId, type, statusId) {
+      const form = document.getElementById(formId);
+      const status = document.getElementById(statusId);
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        status.textContent = "Proses...";
+        status.className = "status";
+
+        const formData = new FormData(form);
+        const payload = { type };
+
+        formData.forEach((value, key) => {
+          payload[key] = value;
+        });
+
+        try {
+          const res = await fetch("/api/create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await res.json();
+          if (!res.ok || data.error) {
+            throw new Error(data.error || "Terjadi kesalahan");
+          }
+
+          let text = data.message || "Berhasil.";
+          if (data.user && data.user.password) {
+            text += `\n\nUSERNAME: ${data.user.username}\nEMAIL: ${data.user.email}\nPASSWORD: ${data.user.password}`;
+          }
+          status.textContent = text;
+          status.classList.add("ok");
+        } catch (err) {
+          status.textContent = err.message || "Gagal membuat panel.";
+          status.classList.add("err");
+        }
+      });
+    }
+
+    handleSubmit("form-panel", "panel", "panel-status");
+    handleSubmit("form-admin", "admin", "admin-status");
+  </script>
+</body>
+</html>
